@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import ToDoList, Item
 from .forms import CreateNewList
 
@@ -24,6 +24,8 @@ def create(response):
             #print("cleaned all ", form.cleaned_data)
             t = ToDoList(name=form.cleaned_data['name'])
             t.save()
+
+            return HttpResponseRedirect("/%i" %t.id)
 
     else:
         form = CreateNewList()
